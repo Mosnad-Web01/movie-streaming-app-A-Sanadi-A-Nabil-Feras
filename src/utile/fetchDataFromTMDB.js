@@ -1,6 +1,6 @@
 // function to get data from the TMDB API to be shared in the whole project
 
-const TMDB_API_KEY = process.env.Public_API_KEY;    //this is an auth key existed in .env.local
+const TMDB_API_KEY = process.env.NEXT_PUBLIC_API_KEY;    //this is an auth key existed in .env.local
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 //pass a suitable (path) -> to get the required data 

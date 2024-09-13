@@ -29,11 +29,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const sidebarItems = [
     { label: "Movies", dropdownItems: ["Popular", "Top Rated", "Upcoming", "Now Playing"] },
     { label: "TV Shows", dropdownItems: ["Popular", "Airing Today", "On TV", "Top Rated"] },
-    { label: "People", dropdownItems: ["Popular People", "Actors", "Directors", "Writers"] },
-    { label: "Discussions", dropdownItems: [] },
-    { label: "Leaderboard", dropdownItems: [] },
-    { label: "API", dropdownItems: [] },
-    { label: "Support", dropdownItems: [] },
     { label: "About", dropdownItems: [] },
     { label: "Logout", dropdownItems: [] },
   ];

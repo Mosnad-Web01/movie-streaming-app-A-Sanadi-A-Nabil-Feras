@@ -4,24 +4,40 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useState } from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
 import Sidebar from "./Sidebar";
-import NotificationDropdown from "./NotificationDropdown";
+// import NotificationDropdown from "./NotificationDropdown";
 import LinkDropdown from "./LinkDropdown";
 import ProfileDropdown from "./ProfileDropdown";
 import Image from 'next/image';
 import logo from "../images/logo.svg";
+import { useEffect } from "react";
+import { fetchGenres } from "../services/fetchGenres";
 
 const Navbar = () => {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
-  const navLinks = [
+  const [navLinks, setNavLinks] = useState([
+    { label: "Genres", dropdownItems: [] },
     { label: "Movies", dropdownItems: ["Popular", "Top Rated", "Upcoming", "Now Playing"] },
     { label: "TV Shows", dropdownItems: ["Popular", "Airing Today", "On TV", "Top Rated"] },
-    { label: "People", dropdownItems: ["Popular People", "Actors", "Directors", "Writers"] },
-    { label: "More", dropdownItems: ["Discussions", "Leaderboard", "Support", "API"] },
-  ];
+  ]);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  // Fetch genres and update the navLinks
+  useEffect(() => {
+    const updateNavLinksWithGenres = async () => {
+      const movieGenres = await fetchGenres(); //return an array of genres names
+      setNavLinks(prevLinks => prevLinks.map(link => {
+        if (link.label === "Genres") {
+          return { ...link, dropdownItems: movieGenres };
+        }
+        return link;
+      }));
+    };
+
+    updateNavLinksWithGenres();
+  }, []);
+
 
   return (
     <header className="bg-white dark:bg-[#032541] dark:text-white sticky top-0 z-50 shadow-lg">
@@ -43,14 +59,17 @@ const Navbar = () => {
             {navLinks.map((link, index) => (
               <LinkDropdown key={index} label={link.label} dropdownItems={link.dropdownItems} />
             ))}
+            {/* Actors*/} 
+             <a href="#" className="hover:text-[#01b4e4] flex items-center">Actors</a>
           </div>
+         
         </div>
 
         {/* Right Section */}
         <div className="flex items-center space-x-4 md:space-x-6">
           <SearchIcon className="w-6 h-6 hover:text-[#01b4e4] cursor-pointer hidden md:block" />
-          <NotificationDropdown />
-          <ProfileDropdown />
+          {/* <NotificationDropdown /> not-required*/}
+          <ProfileDropdown />  
           <button onClick={toggleDarkMode} className="bg-[#01b4e4] rounded-full px-3 py-1 text-white">
             {darkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
           </button>
