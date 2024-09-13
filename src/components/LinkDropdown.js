@@ -42,7 +42,7 @@ const LinkDropdown = ({ label, dropdownItems }) => {
           {/* Dropdown Content */}
           <div className="bg-white text-black rounded-md shadow-lg p-4 w-48">
             <ul>
-              {dropdownItems.map((item, idx) => (
+              {dropdownItems?.map((item, idx) => (
                 <li key={idx} className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
                   {item}
                 </li>
