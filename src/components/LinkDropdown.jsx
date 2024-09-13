@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const LinkDropdown = ({ label, dropdownItems }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  let dropdownTimeout;
+
+  // Function to show dropdown with delay on hover leave
+  const handleMouseEnter = () => {
+    if (dropdownTimeout) clearTimeout(dropdownTimeout);
+    setShowDropdown(true);
+  };
+
+  // Function to hide dropdown with a delay
+  const handleMouseLeave = () => {
+    dropdownTimeout = setTimeout(() => setShowDropdown(false), 200);
+  };
+
+  // Cleanup the timeout
+  useEffect(() => {
+    return () => clearTimeout(dropdownTimeout);
+  }, []);
+
+  // Show only the first 6 items by default
+  const displayedItems = expanded ? dropdownItems : dropdownItems.slice(0, 6);
 
   return (
     <div
       className="relative group"
-      onMouseEnter={() => setShowDropdown(true)}
-      onMouseLeave={() => setShowDropdown(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <a href="#" className="hover:text-[#01b4e4] flex items-center">
         {label}
         <span
-          className={`ml-2 transform transition-transform ${
+          className={`ml-2 transform transition-transform duration-500 ${
             showDropdown ? "rotate-180" : "rotate-0"
           }`}
         >
@@ -33,21 +54,34 @@ const LinkDropdown = ({ label, dropdownItems }) => {
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2">
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 max-h-60 overflow-hidden z-10">
           {/* Arrow */}
           <div className="relative">
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white"></div>
+          <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-gray-700 dark:border-b-white"></div>
           </div>
 
           {/* Dropdown Content */}
-          <div className="bg-white text-black rounded-md shadow-lg p-4 w-48">
-            <ul>
-              {dropdownItems?.map((item, idx) => (
-                <li key={idx} className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+          <div className="bg-gray-800 dark:bg-white dark:text-black text-gray-200 rounded-md shadow-lg p-4 overflow-y-auto max-h-60 transition-colors duration-500">
+            <ul className="grid grid-cols-2 gap-2">
+              {displayedItems?.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="px-2 py-1 hover:text-green-600 dark:hover:text-[#01b4e4] cursor-pointer transition-colors duration-300"
+                >
                   {item}
                 </li>
               ))}
             </ul>
+
+            {/* See More / Collapse Button */}
+            {dropdownItems.length > 6 && (
+              <button
+                className="w-full text-center mt-2 text-sm text-[#01b4e4] hover:underline"
+                onClick={() => setExpanded(!expanded)}
+              >
+                {expanded ? "Show Less" : "See More"}
+              </button>
+            )}
           </div>
         </div>
       )}
