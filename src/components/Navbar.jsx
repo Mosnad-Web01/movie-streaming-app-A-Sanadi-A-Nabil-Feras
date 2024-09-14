@@ -1,7 +1,7 @@
 "use client";
 import { MenuIcon, SearchIcon } from "@heroicons/react/solid";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
 import Sidebar from "./Sidebar";
 // import NotificationDropdown from "./NotificationDropdown";
@@ -9,25 +9,28 @@ import LinkDropdown from "./LinkDropdown";
 import ProfileDropdown from "./ProfileDropdown";
 import Image from 'next/image';
 import logo from "../images/logo.svg";
-import { useEffect } from "react";
 import { fetchGenres } from "../services/fetchGenres";
+
+// Centralized navLinks data
+const NAV_LINKS_TEMPLATE = [
+  { label: "Genres", dropdownItems: [] },
+  { label: "Movies", dropdownItems: ["Popular", "Top Rated", "Upcoming", "Now Playing"] },
+  { label: "TV Shows", dropdownItems: ["Popular", "Airing Today", "On TV", "Top Rated"] },
+ 
+];
 
 const Navbar = () => {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [navLinks, setNavLinks] = useState(NAV_LINKS_TEMPLATE);
 
-  const [navLinks, setNavLinks] = useState([
-    { label: "Genres", dropdownItems: [] },
-    { label: "Movies", dropdownItems: ["Popular", "Top Rated", "Upcoming", "Now Playing"] },
-    { label: "TV Shows", dropdownItems: ["Popular", "Airing Today", "On TV", "Top Rated"] },
-  ]);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   // Fetch genres and update the navLinks
   useEffect(() => {
     const updateNavLinksWithGenres = async () => {
-      const movieGenres = await fetchGenres(); //return an array of genres names
-      setNavLinks(prevLinks => prevLinks.map(link => {
+      const movieGenres = await fetchGenres(); // Return an array of genre names
+      setNavLinks((prevLinks) => prevLinks.map((link) => {
         if (link.label === "Genres") {
           return { ...link, dropdownItems: movieGenres };
         }
@@ -69,7 +72,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-4 md:space-x-6">
           <SearchIcon className="w-6 h-6 hover:text-[#01b4e4] cursor-pointer hidden md:block" />
           {/* <NotificationDropdown /> not-required*/}
-          <ProfileDropdown />  
+          <ProfileDropdown />
           <button onClick={toggleDarkMode} className="bg-[#01b4e4] rounded-full px-3 py-1 text-white">
             {darkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
           </button>
@@ -77,7 +80,7 @@ const Navbar = () => {
       </nav>
 
       {/* Sidebar */}
-      <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} navLinks={navLinks} />
     </header>
   );
 };
