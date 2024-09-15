@@ -30,7 +30,7 @@ const LinkDropdown = ({ label, dropdownItems }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <a href="#" className="hover:text-[#01b4e4] flex items-center">
+      <a href="#" className="hover:text-[#01b4e4] flex items-center  text-lg font-semibold">
         {label}
         <span
           className={`ml-2 transform transition-transform duration-500 ${
@@ -66,7 +66,7 @@ const LinkDropdown = ({ label, dropdownItems }) => {
               {displayedItems?.map((item, idx) => (
                 <li
                   key={idx}
-                  className="px-2 py-1 hover:text-green-600 dark:hover:text-[#01b4e4] cursor-pointer transition-colors duration-300"
+                  className="px-2 py-1 hover:text-[#01b4e4] cursor-pointer transition-colors duration-300"
                 >
                   {item}
                 </li>

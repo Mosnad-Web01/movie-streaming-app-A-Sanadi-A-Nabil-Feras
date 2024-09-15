@@ -44,8 +44,8 @@ const Navbar = () => {
 
   return (
     <header className="bg-white dark:bg-[#032541] text-[#032541] dark:text-white sticky top-0 z-50 shadow-lg">
-      <nav className="w-full max-w-screen-xl mx-auto h-16 flex items-center justify-between px-4 md:px-6">
-        <div className="flex items-center space-x-4 md:space-x-8">
+      <nav className="container mx-auto h-16 flex items-center justify-between px-4 md:px-6">
+        <div className="flex  items-center gap-12">
           {/* Hamburger Icon */}
           <div className="md:hidden">
             <MenuIcon className="w-6 h-6 cursor-pointer" onClick={toggleSidebar} />
@@ -53,7 +53,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <div className="cursor-pointer flex items-center space-x-2">
-            <span className="text-2xl font-bold text-[#21d07a] lg:hidden">TMDB</span>
+            <span className="text-2xl font-bold text-[#5fcde4] lg:hidden">TMDB</span>
             <Image className="w-36 h-5 hidden lg:block" src={logo} alt="Logo" />
           </div>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
               <LinkDropdown key={index} label={link.label} dropdownItems={link.dropdownItems} />
             ))}
             {/* Actors*/} 
-             <a href="#" className="hover:text-[#01b4e4] flex items-center">Actors</a>
+             <a href="#" className="hover:text-[#01b4e4] flex items-center  text-lg font-semibold ">Actors</a>
           </div>
          
         </div>
