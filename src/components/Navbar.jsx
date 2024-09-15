@@ -53,7 +53,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <div className="cursor-pointer flex items-center space-x-2">
-            <span className="text-2xl font-bold text-[#21d07a] lg:hidden">TMDB</span>
+            <span className="text-2xl font-bold text-[#5fcde4] lg:hidden">TMDB</span>
             <Image className="w-36 h-5 hidden lg:block" src={logo} alt="Logo" />
           </div>
 
