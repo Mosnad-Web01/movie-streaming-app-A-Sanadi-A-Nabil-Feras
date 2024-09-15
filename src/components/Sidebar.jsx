@@ -5,7 +5,7 @@ const SidebarItem = ({ label, dropdownItems }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div>
+    <div className="container ">
       <div className="relative">
         <a
           href="#"
@@ -38,7 +38,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, navLinks }) => {
     >
       <div className="w-64 bg-[#032541] h-full p-4 relative overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
-          <span className="text-2xl font-bold text-[#21d07a]">TMDB</span>
+          <span className="text-2xl font-bold text-[#5fcde4] ">TMDB</span>
           <XIcon className="w-6 h-6 text-white cursor-pointer" onClick={toggleSidebar} />
         </div>
 
