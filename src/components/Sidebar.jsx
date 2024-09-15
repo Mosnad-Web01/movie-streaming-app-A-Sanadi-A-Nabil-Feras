@@ -5,7 +5,7 @@ const SidebarItem = ({ label, dropdownItems }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div>
+    <div className="container ">
       <div className="relative">
         <a
           href="#"

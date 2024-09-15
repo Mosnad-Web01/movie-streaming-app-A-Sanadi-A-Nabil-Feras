@@ -17,7 +17,7 @@ export default function TrendingSection() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className='container mx-auto font-custom pt-15 px-2'>
+    <div className='container mx-auto font-custompx-4 md:px-6'>
       <div className="trending-section " style={{ /*boxShadow:'inset -38px 0px 20px -15px rgba(255, 255, 254, 0.62)' */}}>
         <div className="toggle-switch flex items-center gap-4 mb-6 ">
           <h2 className="text-2xl font-bold pl-4">Trending</h2>

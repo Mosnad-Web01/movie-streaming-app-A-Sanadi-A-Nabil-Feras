@@ -44,8 +44,8 @@ const Navbar = () => {
 
   return (
     <header className="bg-white dark:bg-[#032541] text-[#032541] dark:text-white sticky top-0 z-50 shadow-lg">
-      <nav className="w-full max-w-screen-xl mx-auto h-16 flex items-center justify-between px-4 md:px-6">
-        <div className="flex items-center space-x-4 md:space-x-8">
+      <nav className="container mx-auto h-16 flex items-center justify-between px-4 md:px-6">
+        <div className="flex  items-center space-x-2 md:space-x-8">
           {/* Hamburger Icon */}
           <div className="md:hidden">
             <MenuIcon className="w-6 h-6 cursor-pointer" onClick={toggleSidebar} />
