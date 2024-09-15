@@ -9,12 +9,18 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      boxShadow: {
+        'inner-right-only': 'inset -10px 0 10px rgba(255, 255, 255, 0.6)', // Right-side white shadow
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 };
 export default config;
