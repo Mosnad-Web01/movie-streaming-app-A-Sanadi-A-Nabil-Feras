@@ -33,4 +33,47 @@ body {
 .font-custom {
   font-family: 'YourFontFamily';
 }
+.circle-progress {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #21d07a calc(var(--progress, 0) * 1%),
+    #204529 calc(var(--progress, 0) * 1%)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); /* Optional: Adds a shadow effect */
+}
+
+.circle-progress::before {
+  content: '';
+  position: absolute;
+  width: 42px; /* Slightly smaller inner circle */
+  height: 42px;
+  background-color: #081c22; /* Dark background color for the inner part */
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.circle-progress .inner {
+  position: relative;
+  font-size: 14px; /* Adjust size for better fit */
+  color: #fff;
+  font-weight: bold;
+  z-index: 2;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
+}
+
+.circle-progress .inner span {
+  font-size: 10px; /* Small "x" beside the percentage */
+  vertical-align: top;
+  margin-left: 2px;
+}
+
+
+
+
 
