@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import Slider from "react-slick";
 import { useTrendingMovies } from '../hooks/useTrendingMovies';
 import ToggleSwitch from './ToggleSwitch '; 
 import MediaCard from './MediaCard '; // Import the MediaCard component
@@ -15,6 +16,57 @@ export default function TrendingSection() {
   ];
 
   if (error) return <p>{error}</p>;
+
+  // var settings = {
+  //   dots: false,
+  //   arrows: false,
+  //   infinite: true, // 'Infinite' should be 'infinite'
+  //   speed: 800,
+  //   slidesToScroll: 6,
+  //   slidesToShow: 7, // Display 3 slides at once (you can adjust this)
+  //   autoplay: true, // 'autoPlay' should be 'autoplay'
+  //   autoplaySpeed: 4000, // 'autoPlaySpeed' should be 'autoplaySpeed'
+  //   cssEase: "ease-in-out",
+  //   pauseOnHover: false,
+  //   pauseOnFocus: false,
+  // };
+
+  var settings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 6, // Show 6 slides on larger screens
+    slidesToScroll: 5,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    cssEase: "ease-in-out",
+    pauseOnHover: false,
+    pauseOnFocus: false,
+    responsive: [
+      {
+        breakpoint: 1025, // Screen width less than 1024px
+        settings: {
+          slidesToShow: 4, // Show 4 slides on medium screens (like tablets)
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 768, // Screen width less than 768px
+        settings: {
+          slidesToShow: 3, // Show 2 slides on smaller screens (like smartphones)
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480, // Screen width less than 480px
+        settings: {
+          slidesToShow: 2, // Show 1 slide on extra small screens
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <div className='container mx-auto font-custom px-4 '>
@@ -33,6 +85,7 @@ export default function TrendingSection() {
         {/* Loading State */}
         {loading ? <p>Loading...</p> : (
           <HorizontalSlider>
+            <Slider {...settings}>
             {movies.map((movie) => (
               <MediaCard
                 key={movie.id}
@@ -43,6 +96,7 @@ export default function TrendingSection() {
                 link={`/movie/${movie.id}`}  // Dynamic link for each movie
               />
             ))}
+            </Slider>
           </HorizontalSlider>
         )}
       </div>
