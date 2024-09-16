@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import Slider from "react-slick";
 import { useTrendingMovies } from '../hooks/useTrendingMovies';
 import ToggleSwitch from './ToggleSwitch '; 
 import MediaCard from './MediaCard '; // Import the MediaCard component
@@ -15,6 +16,19 @@ export default function TrendingSection() {
   ];
 
   if (error) return <p>{error}</p>;
+
+  var settings = {
+    dots: false,
+    arrows: false,
+    infinite: true, // 'Infinite' should be 'infinite'
+    speed: 800,
+    slidesToScroll: 1,
+    autoplay: true, // 'autoPlay' should be 'autoplay'
+    autoplaySpeed: 4000, // 'autoPlaySpeed' should be 'autoplaySpeed'
+    cssEase: "ease-in-out",
+    pauseOnHover: false,
+    pauseOnFocus: false,
+  };
 
   return (
     <div className='container mx-auto font-custom pt-15 px-2'>
@@ -33,6 +47,7 @@ export default function TrendingSection() {
         {/* Loading State */}
         {loading ? <p>Loading...</p> : (
           <HorizontalSlider>
+            <Slider {...settings}>
             {movies.map((movie) => (
               <MediaCard
                 key={movie.id}
@@ -43,6 +58,7 @@ export default function TrendingSection() {
                 link={`/movie/${movie.id}`}  // Dynamic link for each movie
               />
             ))}
+            </Slider>
           </HorizontalSlider>
         )}
       </div>
